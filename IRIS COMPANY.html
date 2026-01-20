@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" >
+  <title>IRIS Opticals</title>
+  <style>
+    
+    :root{
+      --header-h:60px;
+      --brand-color:#7a7a7a;
+      --gradient: linear-gradient(90deg,#b3b2b2 0%,#e6e5e5 25%,#807f7f 84%);
+      --muted:#555;
+      --card-bg:#e0e0e0;
+      --white:#ffffff;
+      --accent:#2b2b2b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: Georgia, serif;
+      color:#222;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      background:#fff;
+    }
+
+    
+    .header{
+      height:var(--header-h);
+      background:var(--brand-color);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 40px;
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#fff;
+      font-weight:700;
+      font-size:18px;
+    }
+    .brand .logo-icon{font-size:20px}
+    .nav a{
+      color:#fff;
+      text-decoration:none;
+      margin-left:28px;
+      font-size:16px;
+      opacity:0.95;
+    }
+
+    
+    .home{
+      display:flex;
+      min-height:calc(100vh - var(--header-h));
+      width:100%;
+    }
+    .home-left{
+      width:50%;
+      background: center/cover no-repeat;
+      background-image: url('Iris.jpeg');
+      filter:grayscale(100%);
+    }
+    .home-right{
+      width:50%;
+      background:var(--gradient);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:48px 80px;
+    }
+    .home-right h1{
+      font-size:64px;
+      line-height:1;
+      margin-bottom:12px;
+      font-weight:400;
+      color:var(--accent);
+    }
+    .home-right .tagline{
+      font-style:italic;
+      color:var(--muted);
+      font-size:18px;
+      margin-top:18px;
+    }
+
+    .section{
+      min-height:calc(100vh - var(--header-h));
+      background:var(--gradient);
+      padding:64px 80px;
+      color:#222;
+    }
+    .section h2{
+      font-size:40px;
+      margin-bottom:22px;
+      font-weight:600;
+      color:var(--accent);
+    }
+
+    .shop-container{
+      background:var(--card-bg);
+      padding:36px;
+      border-radius:18px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+    .shop-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+    }
+    .product{
+      background:var(--white);
+      border-radius:12px;
+      padding:12px;
+      text-align:center;
+      box-shadow:0 4px 12px rgba(0,0,0,0.04);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:10px;
+    }
+    .product .img{
+      width:100%;
+      height:150px;
+      border-radius:8px;
+      background:center/cover no-repeat;
+    }
+    .product .title{
+      font-size:14px;
+      color:#222;
+      margin-top:6px;
+    }
+    .product .price{
+      font-weight:700;
+      margin-top:6px;
+    }
+    .product .cart{
+      font-size:20px;
+      margin-top:6px;
+    }
+
+    .about-hero{
+      height:320px;
+      background:center/cover no-repeat;
+      background-image: url('aboutus.jpeg');
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+    .about-hero h2{
+      color:#fff;
+      font-size:40px;
+      background:rgba(0,0,0,0.42);
+      padding:12px 28px;
+      border-radius:8px;
+    }
+    .about-content{
+      padding:56px 0 0 0;
+      background:var(--gradient);
+    }
+    .about-columns{
+      display:flex;
+      gap:36px;
+      margin-bottom:36px;
+    }
+    .about-columns > div{
+      flex:1;
+    }
+    .about-columns h3{
+      font-size:20px;
+      margin-bottom:10px;
+      color:var(--accent);
+    }
+    .about-columns p{color:#222}
+
+    /* Team flashcards (new) */
+    .team-wrapper{
+      margin-top:18px;
+    }
+    .team-title{
+      font-size:22px;
+      margin-bottom:14px;
+      color:var(--accent);
+      font-weight:600;
+    }
+    .team-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+    }
+
+    .card{
+      perspective:1200px;
+    }
+    .card-inner{
+      position:relative;
+      width:100%;
+      padding-top:100%; 
+      transform-style:preserve-3d;
+      transition:transform 0.6s cubic-bezier(.2,.9,.3,1);
+      border-radius:12px;
+    }
+    .card:hover .card-inner,
+    .card:focus-within .card-inner{
+      transform:rotateY(180deg);
+    }
+    .card-face{
+      position:absolute;
+      inset:0;
+      backface-visibility:hidden;
+      border-radius:12px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      color:#fff;
+    }
+    .card-front{
+      background:linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.06)), #222;
+      background-size:cover;
+      background-position:center;
+    }
+    .card-front .member-photo{
+      width:72px;
+      height:72px;
+      border-radius:50%;
+      background:center/cover no-repeat;
+      border:3px solid rgba(255,255,255,0.12);
+      margin-bottom:12px;
+    }
+    .card-front .member-name{
+      font-weight:700;
+      font-size:16px;
+      color:#fff;
+      margin-bottom:6px;
+    }
+    .card-front .member-role{
+      font-size:13px;
+      color:rgba(255,255,255,0.85);
+    }
+
+    .card-back{
+      transform:rotateY(180deg);
+      background:linear-gradient(180deg,#c7c0c0,#b89d9d);
+      padding:18px;
+      text-align:left;
+    }
+    .card-back p{
+      font-size:14px;
+      color:#fff;
+      line-height:1.4;
+    }
+
+    .cc-wrapper{
+      max-width:760px;
+      margin:0 auto;
+    }
+    .cc-card{
+      background:var(--card-bg);
+      padding:32px;
+      border-radius:18px;
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
+    }
+    .cc-card h2{margin-bottom:8px;color:var(--accent)}
+    .cc-sub{color:var(--muted);margin-bottom:18px}
+    .form-row{margin-bottom:16px}
+    label{display:block;margin-bottom:8px;font-weight:600}
+    input[type="text"], input[type="email"], input[type="file"]{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid rgba(0,0,0,0.12);
+      background:#fff;
+      font-size:15px;
+    }
+    .btn{
+      display:inline-block;
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      background:var(--brand-color);
+      color:#fff;
+      text-align:center;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      font-size:16px;
+    }
+
+    .footer{
+      padding:20px;
+      text-align:center;
+      background:#f0f0f0;
+      color:#666;
+    }
+
+    @media (max-width:1100px){
+      .shop-grid{grid-template-columns:repeat(3,1fr)}
+      .team-grid{grid-template-columns:repeat(3,1fr)}
+      .home-right{padding:40px}
+    }
+    @media (max-width:800px){
+      .home{flex-direction:column}
+      .home-left{width:100%;height:48vh}
+      .home-right{width:100%;height:auto;padding:28px}
+      .shop-grid{grid-template-columns:repeat(2,1fr)}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .about-hero{height:220px}
+      .section{padding:40px}
+    }
+    @media (max-width:480px){
+      .shop-grid{grid-template-columns:1fr}
+      .team-grid{grid-template-columns:1fr}
+      .about-columns{flex-direction:column}
+      .home-right h1{font-size:36px}
+      .about-hero h2{font-size:28px}
+    }
+  </style>
+</head>
+<body>
+
+  
+  <header class="header">
+    <div class="brand" >
+      <span class="logo-icon">👓</span>
+      <span>IRIS opticals</span>
+    </div>
+    <nav class="nav"  aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#cc">C&amp;C</a>
+    </nav>
+  </header>
+
+  <main id="home" class="home" >
+    <div class="home-left" aria-hidden="true"></div>
+    <div class="home-right">
+      <h1>IRIS<br>Opticals</h1>
+      <p class="tagline">“caring for your vision”</p>
+    </div>
+  </main>
+
+  <section id="shop" class="section" aria-labelledby="shop-title">
+    <h2 id="shop-title">Shop</h2>
+
+    <div class="shop-container" role="region" aria-label="Products">
+      <div class="shop-grid">
+        <div class="product">
+          <div class="img" style="background-image:url('iris1.jpeg');"></div>
+          <div class="title">Rectangular glasses with gold accents</div>
+          <div class="price">$50</div>
+          <div class="cart" aria-hidden="true">🛒</div>
+        </div>
+
+        <div class="product">
+          <div class="img" style="background-image:url('iris2.jpeg');"></div>
+          <div class="title">Thin black frame glasses</div>
+          <div class="price">$40</div>
+          <div class="cart" aria-hidden="true">🛒</div>
+        </div>
+
+        <div class="product">
+          <div class="img" style="background-image:url('iris3.jpeg');"></div>
+          <div class="title">Transparent frame on stand</div>
+          <div class="price">$60</div>
+          <div class="cart" aria-hidden="true">🛒</div>
+        </div>
+
+        <div class="product">
+          <div class="img" style="background-image:url('iris4.jpeg');"></div>
+          <div class="title">Black frame held by hand</div>
+          <div class="price">$20</div>
+          <div class="cart" aria-hidden="true">🛒</div>
+        </div>
+
+        <div class="product">
+          <div class="img" style="background-image:url('iris5.jpeg');"></div>
+          <div class="title">Transparent gold on box</div>
+          <div class="price">$70</div>
+          <div class="cart" aria-hidden="true">🛒</div>
+        </div>
+
+        <div class="product">
+          <div class="img" style="background-image:url('iris6.jpeg');"></div>
+          <div class="title">Light blue square frame</div>
+          <div class="price">$30</div>
+          <div class="cart" aria-hidden="true">🛒</div>
+        </div>
+
+        <div class="product">
+          <div class="img" style="background-image:url('iris7.jpeg');"></div>
+          <div class="title">Black round on street</div>
+          <div class="price">$20</div>
+          <div class="cart" aria-hidden="true">🛒</div>
+        </div>
+
+        <div class="product">
+          <div class="img" style="background-image:url('iris8.jpeg');"></div>
+          <div class="title">Thin gold wireframe</div>
+          <div class="price">$10</div>
+          <div class="cart" aria-hidden="true">🛒</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About (title overlaid on eyeglasses photo; content below on gradient) -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="about-hero" role="img" aria-label="Close-up eyeglasses photo">
+      <h2 id="about-title">About Us</h2>
+    </div>
+
+    <div class="about-content section" aria-describedby="about-desc">
+      <div id="about-desc" class="about-columns" role="region" aria-label="About details">
+        <div>
+          <h3>Mission</h3>
+          <p>To provide high-quality, stylish, and affordable eyewear that improves vision and confidence for everyone.</p>
+        </div>
+
+        <div>
+          <h3>Vision</h3>
+          <p>To become the leading eyewear provider, known for innovation, eye care education, and exceptional customer experience.</p>
+        </div>
+
+        <div>
+          <h3>Uniqueness</h3>
+          <p>Stylish &amp; trendy frames,<br>Affordable, high-quality lenses,<br>Focus on eye health,<br>Excellent customer service</p>
+        </div>
+      </div>
+
+    
+      <div class="team-wrapper">
+        <div class="team-title">Meet the Team</div>
+
+        <div class="team-grid">
+          
+          <div class="card" tabindex="0" >
+            <div class="card-inner">
+              <div class="card-face card-front" style="background-image:linear-gradient(rgba(0,0,0,0.18),rgba(0,0,0,0.06)), url('henry.png');">
+                <div class="member-photo" style="background-image:url('henry');"></div>
+                <div class="member-name">Dr. Henriette U.</div>
+                <div class="member-role">Optometrist</div>
+              </div>
+              <div class="card-face card-back">
+                <p><strong>Dr. Henriette U.</strong><br>Lead optometrist with 10+ years experience in clinical eye care and frame fitting. Passionate about patient education and vision health.</p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="card" tabindex="0" >
+            <div class="card-inner">
+              <div class="card-face card-front" style="background-image:linear-gradient(rgba(0,0,0,0.18),rgba(0,0,0,0.06)), url('jane.png');">
+                <div class="member-photo" style="background-image:url('jane.png');"></div>
+                <div class="member-name">Jane B.</div>
+                <div class="member-role">Frame Designer</div>
+              </div>
+              <div class="card-face card-back">
+                <p><strong>Jane B.</strong><br>Head of design — creates stylish, durable frames and oversees product selection to match trends and comfort.</p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="card" tabindex="0" >
+            <div class="card-inner">
+              <div class="card-face card-front" style="background-image:linear-gradient(rgba(0,0,0,0.18),rgba(0,0,0,0.06)), url('christa.jpg');">
+                <div class="member-photo" style="background-image:url('christa.jpg');"></div>
+                <div class="member-name">Lys S.</div>
+                <div class="member-role">Customer Care</div>
+              </div>
+              <div class="card-face card-back">
+                <p><strong>Lys S.</strong><br>Customer care lead focused on fast, friendly service and helping customers choose the right lenses and frames.</p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="card" tabindex="0" >
+            <div class="card-inner">
+              <div class="card-face card-front" style="background-image:linear-gradient(rgba(137, 130, 130, 0.18),rgba(0,0,0,0.06)), url('anne.png');">
+                <div class="member-photo" style="background-image:url('anne.png');"></div>
+                <div class="member-name">Anne L.</div>
+                <div class="member-role">Lab Technician</div>
+              </div>
+              <div class="card-face card-back">
+                <p><strong>Anne L.</strong><br>Precision lens technician ensuring every prescription is crafted accurately and quality-checked before shipping.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  
+  <section id="cc" class="section" aria-labelledby="cc-title">
+    <div class="cc-wrapper">
+      <form class="cc-card" action="#" method="post">
+        <h2 id="cc-title">Send Us Your Prescription</h2>
+        <p class="cc-sub">For more information contant us on <strong>+250795175100</strong>/<strong>+250732195371</strong> <br> Or email us on <strong>irisopticals@gmail.com</strong></p> 
+
+        <div class="form-row">
+          <label for="pres-file">Upload Prescription (PDF, JPG, PNG)</label>
+          <input id="pres-file" type="file" accept=".pdf,.jpg,.jpeg,.png">
+        </div>
+
+        <div class="form-row">
+          <label for="name">Your Name</label>
+          <input id="name" type="text" name="name" >
+        </div>
+
+        <div class="form-row">
+          <label for="email">Your Email</label>
+          <input id="email" type="email" name="email" >
+        </div>
+
+        <div class="form-row">
+          <button class="btn" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer" >
+    © IRIS opticals
+  </footer>
+</body>
+</html>
+
+
